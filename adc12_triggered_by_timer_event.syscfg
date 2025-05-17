@@ -1,0 +1,82 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "MSPM0G350X" --part "Default" --package "LQFP-64(PM)" --product "mspm0_sdk@2.02.00.05"
+ * @v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)" --product "mspm0_sdk@2.02.00.05"
+ * @versions {"tool":"1.21.1+3772"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const ADC12   = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const ADC121  = ADC12.addInstance();
+const Board   = scripting.addModule("/ti/driverlib/Board");
+const DAC12   = scripting.addModule("/ti/driverlib/DAC12");
+const GPIO    = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const GPIO1   = GPIO.addInstance();
+const SYSCTL  = scripting.addModule("/ti/driverlib/SYSCTL");
+const SYSTICK = scripting.addModule("/ti/driverlib/SYSTICK");
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+const gate7  = system.clockTree["MFCLKGATE"];
+gate7.enable = true;
+
+const gate8  = system.clockTree["MFPCLKGATE"];
+gate8.enable = true;
+
+ADC121.$name                          = "ADC12_0";
+ADC121.powerDownMode                  = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+ADC121.endAdd                         = 3;
+ADC121.adcMem1chansel                 = "DL_ADC12_INPUT_CHAN_2";
+ADC121.adcMem1stime                   = "DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP1";
+ADC121.adcMem2chansel                 = "DL_ADC12_INPUT_CHAN_2";
+ADC121.adcMem3chansel                 = "DL_ADC12_INPUT_CHAN_2";
+ADC121.adcMem3stime                   = "DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP1";
+ADC121.repeatMode                     = true;
+ADC121.adcMem0chansel                 = "DL_ADC12_INPUT_CHAN_2";
+ADC121.sampleTime1                    = "0";
+ADC121.enabledInterrupts              = ["DL_ADC12_INTERRUPT_DMA_DONE"];
+ADC121.configureDMA                   = true;
+ADC121.sampCnt                        = 6;
+ADC121.enableFIFO                     = true;
+ADC121.enabledDMATriggers             = ["DL_ADC12_DMA_MEM11_RESULT_LOADED"];
+ADC121.sampleTime0                    = "19.5us";
+ADC121.peripheral.$assign             = "ADC0";
+ADC121.adcPin2Config.$name            = "ti_driverlib_gpio_GPIOPinGeneric0";
+ADC121.DMA_CHANNEL.$name              = "DMA_CH0";
+ADC121.DMA_CHANNEL.addressMode        = "f2b";
+ADC121.DMA_CHANNEL.peripheral.$assign = "DMA_CH0";
+
+
+DAC12.dacOutputPinEn     = true;
+DAC12.dacAmplifier       = "ON";
+DAC12.OutPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric5";
+
+GPIO1.$name                         = "LED";
+GPIO1.port                          = "PORTA";
+GPIO1.associatedPins[0].$name       = "PIN_0";
+GPIO1.associatedPins[0].assignedPin = "14";
+GPIO1.associatedPins[0].pin.$assign = "PA14";
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn           = true;
+
+SYSTICK.periodEnable    = true;
+SYSTICK.period          = 32000;
+SYSTICK.systickEnable   = true;
+SYSTICK.interruptEnable = true;
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+ADC121.peripheral.adcPin2.$suggestSolution = "PA25";
+Board.peripheral.$suggestSolution          = "DEBUGSS";
+Board.peripheral.swclkPin.$suggestSolution = "PA20";
+Board.peripheral.swdioPin.$suggestSolution = "PA19";
+DAC12.peripheral.$suggestSolution          = "DAC0";
+DAC12.peripheral.OutPin.$suggestSolution   = "PA15";
