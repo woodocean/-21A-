@@ -1,9 +1,16 @@
 #include "oled.h"
-#include "stdlib.h"
 #include "oledfont.h"  	 
 //#include "delay.h"
 
-u8 OLED_GRAM[144][8];
+// u8 OLED_GRAM[144][8];
+
+
+void OLED_Delay(u16 time)
+{
+	u32 i;
+	for(i=0;i<time*10000;i++);
+}
+
 
 //反显函数
 void OLED_ColorTurn(u8 i)
@@ -386,7 +393,7 @@ void OLED_ShowPicture(u8 x,u8 y,u8 sizex,u8 sizey,u8 BMP[],u8 mode)
 void OLED_Init(void)
 {  
     OLED_RES_Clr();
-    delay_ms(200);
+    OLED_Delay(200);
     OLED_RES_Set();
 
     OLED_WR_Byte(0xAE,OLED_CMD);//--turn off oled panel
@@ -422,3 +429,105 @@ void OLED_Init(void)
 
 
 
+void Adjust_Wave(u32 waveBuf[], u16 SampleNum)
+{
+	u16 i;
+	float index;
+	u16 index_int;
+	u16 index_yu;
+	float temp;
+	u32 max;
+	u32 min;
+	max = waveBuf[0];
+	min = waveBuf[0];
+	for(i=0;i<SampleNum;i++)
+	{
+		if(max<waveBuf[i])
+		  max = waveBuf[i];
+		if(min>waveBuf[i])
+			min = waveBuf[i];
+	}
+	for(i=0;i<127;i++)
+	{
+		index = ((float)i)*SampleNum/128;
+		index_int = (int)index;
+		index_yu  = (i*SampleNum)%128;
+		temp = ((float)waveBuf[index_int]) * (128-index_yu)/128;
+		temp += ((float)waveBuf[index_int+1]) * index_yu / 128;
+		temp = (temp - min)/(max - min)*60;
+		WaveBuf[i] = (int)temp;
+	}
+}
+// 绘制波形
+// 显示的波形将会是自动缩放后的结果
+// 并且显示的波形仅使用打点方式显示
+void OLED_PlotWave(u32 waveBuf[], u16 SampleNum)
+{
+	Adjust_Wave(waveBuf,SampleNum);
+		u8 i;
+    for (i = 0; i <= 127; i++)
+    {
+     OLED_DrawPoint(i, WaveBuf[i], 1);
+	}
+}
+
+// 浮点数显示
+//x,y :起点坐标
+//num :要显示的数字  注意显示的数字大小不要超过数字位数能显示的最大范围
+//len :数字的位数    包括小数点的个数
+//size:字体大小
+//mode:0,反色显示;1,正常显示
+void OLED_ShowFloat(u8 x,u8 y,float num,u8 len,u8 size1,u8 mode)
+{
+	u8 i=0;
+	u8 count=0;
+	char temp_int[len*2];
+	
+	// 每个字符之间的间隔
+	u8 m;
+	if(size1==8)
+		m=2;
+	else
+		m=0;
+	
+	for(i=0;i<len;i++)
+	{
+		temp_int[i] = ((int)(num/OLED_Pow(10,len-i-1)))%10 + '0';
+  }
+	num = num - ((int)(num));
+	for(i=0;i<len;i++)
+	{
+		temp_int[i+len] = ((int)(num*OLED_Pow(10,i+1)))%10 + '0';
+	}
+
+	i=0;
+	count=0;   // 代表显示的字符个数
+	while(count<len)
+	{
+		// 如果整数部分开头一直是零
+		if(count==0&&temp_int[i]=='0'&&i<len)
+		{
+			i++;
+			continue;
+		}
+		
+		if(i==len&&count!=0)
+		{			
+			OLED_ShowChar(x+(size1/2+m)*count,y,'.',size1,mode);
+			count++;
+		}
+		if(i==len&&count==0)
+		{
+			OLED_ShowChar(x+(size1/2+m)*count,y,'0',size1,mode);
+			count++;
+			OLED_ShowChar(x+(size1/2+m)*count,y,'.',size1,mode);
+			count++;
+		}
+		if(count<len)
+		{
+			OLED_ShowChar(x+(size1/2+m)*count,y,temp_int[i],size1,mode);
+			count++;
+			i++;
+		}
+	}
+}

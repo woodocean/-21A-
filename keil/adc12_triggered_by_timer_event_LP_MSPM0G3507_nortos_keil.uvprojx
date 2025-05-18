@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>__MSPM0G3507__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\..\source\third_party\CMSIS\Core\Include;..\..\..\..\..\source;..\BSP;..\..\21A_v3_adc_copy;..\..\..\..\..\source\third_party\CMSIS\DSP\Include;..\my_math;..\ti</IncludePath>
+              <IncludePath>..\..\..\..\..\source\third_party\CMSIS\Core\Include;..\..\..\..\..\source;..\..\21A_v3_adc_copy;..\..\..\..\..\source\third_party\CMSIS\DSP\Include;..\my_math;..\ti;..\OLED</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -433,6 +433,21 @@
               <FileName>my_arm_math.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\my_math\my_arm_math.h</FilePath>
+            </File>
+            <File>
+              <FileName>oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\OLED\oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\OLED\oled.h</FilePath>
+            </File>
+            <File>
+              <FileName>oledfont.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\OLED\oledfont.h</FilePath>
             </File>
           </Files>
         </Group>

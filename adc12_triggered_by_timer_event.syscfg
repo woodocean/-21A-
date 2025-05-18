@@ -55,11 +55,19 @@ DAC12.dacOutputPinEn     = true;
 DAC12.dacAmplifier       = "ON";
 DAC12.OutPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric5";
 
-GPIO1.$name                         = "LED";
+GPIO1.$name                         = "GPIO_GRP_0";
 GPIO1.port                          = "PORTA";
-GPIO1.associatedPins[0].$name       = "PIN_0";
-GPIO1.associatedPins[0].assignedPin = "14";
-GPIO1.associatedPins[0].pin.$assign = "PA14";
+GPIO1.associatedPins.create(5);
+GPIO1.associatedPins[0].$name       = "DC";
+GPIO1.associatedPins[0].pin.$assign = "PA22";
+GPIO1.associatedPins[1].$name       = "CS";
+GPIO1.associatedPins[1].pin.$assign = "PA2";
+GPIO1.associatedPins[2].$name       = "RES";
+GPIO1.associatedPins[2].pin.$assign = "PA21";
+GPIO1.associatedPins[3].$name       = "SDA";
+GPIO1.associatedPins[3].pin.$assign = "PA14";
+GPIO1.associatedPins[4].$name       = "SCL";
+GPIO1.associatedPins[4].pin.$assign = "PA12";
 
 SYSCTL.forceDefaultClkConfig = true;
 SYSCTL.clockTreeEn           = true;

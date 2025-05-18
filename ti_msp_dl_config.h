@@ -97,12 +97,24 @@ extern "C" {
 
 
 
-/* Port definition for Pin Group LED */
-#define LED_PORT                                                         (GPIOA)
+/* Port definition for Pin Group GPIO_GRP_0 */
+#define GPIO_GRP_0_PORT                                                  (GPIOA)
 
-/* Defines for PIN_0: GPIOA.14 with pinCMx 36 on package pin 7 */
-#define LED_PIN_0_PIN                                           (DL_GPIO_PIN_14)
-#define LED_PIN_0_IOMUX                                          (IOMUX_PINCM36)
+/* Defines for DC: GPIOA.22 with pinCMx 47 on package pin 18 */
+#define GPIO_GRP_0_DC_PIN                                       (DL_GPIO_PIN_22)
+#define GPIO_GRP_0_DC_IOMUX                                      (IOMUX_PINCM47)
+/* Defines for CS: GPIOA.2 with pinCMx 7 on package pin 42 */
+#define GPIO_GRP_0_CS_PIN                                        (DL_GPIO_PIN_2)
+#define GPIO_GRP_0_CS_IOMUX                                       (IOMUX_PINCM7)
+/* Defines for RES: GPIOA.21 with pinCMx 46 on package pin 17 */
+#define GPIO_GRP_0_RES_PIN                                      (DL_GPIO_PIN_21)
+#define GPIO_GRP_0_RES_IOMUX                                     (IOMUX_PINCM46)
+/* Defines for SDA: GPIOA.14 with pinCMx 36 on package pin 7 */
+#define GPIO_GRP_0_SDA_PIN                                      (DL_GPIO_PIN_14)
+#define GPIO_GRP_0_SDA_IOMUX                                     (IOMUX_PINCM36)
+/* Defines for SCL: GPIOA.12 with pinCMx 34 on package pin 5 */
+#define GPIO_GRP_0_SCL_PIN                                      (DL_GPIO_PIN_12)
+#define GPIO_GRP_0_SCL_IOMUX                                     (IOMUX_PINCM34)
 
 
 

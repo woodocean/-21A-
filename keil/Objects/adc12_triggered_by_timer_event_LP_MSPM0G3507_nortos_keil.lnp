@@ -4,6 +4,7 @@
 ".\objects\ti_msp_dl_config.o"
 ".\objects\board.o"
 ".\objects\my_arm_math.o"
+".\objects\oled.o"
 ".\objects\dl_adc12.o"
 ".\objects\dl_aes.o"
 ".\objects\dl_aesadv.o"

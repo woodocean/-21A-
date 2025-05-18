@@ -1,5 +1,4 @@
-./objects/oled.o: ..\BSP\oled.c ..\BSP\oled.h \
-  ..\..\21A_v3_adc_copy\ti_msp_dl_config.h \
+./objects/oled.o: ..\OLED\oled.c ..\OLED\oled.h \
   ..\..\..\..\..\source\ti\devices\msp\msp.h \
   ..\..\..\..\..\source\ti\devices\DeviceFamily.h \
   ..\..\..\..\..\source\ti\devices\msp\m0p\mspm0g350x.h \
@@ -82,5 +81,4 @@
   ..\..\..\..\..\source\ti\driverlib\dl_vref.h \
   ..\..\..\..\..\source\ti\driverlib\dl_wwdt.h \
   ..\..\..\..\..\source\ti\driverlib\m0p\dl_interrupt.h \
-  ..\..\..\..\..\source\ti\driverlib\m0p\dl_systick.h \
-  D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h ..\BSP\oledfont.h
+  ..\..\..\..\..\source\ti\driverlib\m0p\dl_systick.h ..\OLED\oledfont.h
